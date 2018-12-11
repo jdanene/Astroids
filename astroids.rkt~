@@ -1,6 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname astroids) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname astroidsv3) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 (require 2htdp/image)
 (require 2htdp/universe)
 
@@ -11,16 +11,16 @@
 
 Game Description:
     The player controls a spaceships movement and shoots rocks floating through space. The
-    player starts with 3 lifes, if a rock hits the spaceship the player loses a life. If a player shoots
-    a rock, the rock is destoyed. After shooting a set amount of rocks the level increases in hardness
-    by adding more rocks with possibly complex (lorenz movements) movements through space.
-    The smaller the rock the faster it moves, and the more points you get for shooting it down.
+    player starts with 3 life's, if a rock hits the spaceship the player loses a life. If a player shoots
+    a rock, the the rocks break into twp smaller asteroids that move faster and are more difficult to hit.
+    After achieving a certain score the level increases in hardness, by possibly adding rocks w/ faster speeds
+    or lorenz movements movements through space. The smaller the rock the more points you get for shooting it down.
 
-    Once the ship begins moving in a direction, it will continue in that direction for a time without player intervention unless the player applies
+    Once the ship begins moving in a direction, it will continue in that direction for a
+    time without player intervention unless the player applies
     thrust in a different direction. A ship never stops once you hit the space bar... unless the ship
-    the ship is destroyed. In this case the ship is reset in the middle of the screen. As the player
-    shoots asteroids, they break into smaller asteroids that move faster and are more difficult to hit.
-    There is a smallest astroid that will actually be destroyed and disppear if hit.
+    the ship is destroyed. In this case the ship is reset in the middle of the screen.
+
 
 Game Controls:
    - up or "w" key: Accelerate the spaceship forwards
@@ -39,41 +39,68 @@ Game Controls:
 
 #| -----------   Main Definitions and Structs -----------   |#
 
+;; A object is one of
+;; - projectile
+;; - spaceship
+;; - astroid
+
 ;; An angle is a number between 0 and 360
 ;; Interpretation: Usual interpretation of a geometric angle
 
+;; An object-location is
+;; (make-object-location angle int posn)
+(define-struct object-location (angle speed posn))
+
 ;; A spaceship is
-;;   (make-spaceship posn  -- spaceships location
-;;                   angle  - angle of spaceship
-;;                   boolean -- tells if spaceship accelerating or not)
-(define-struct spaceship (posn pos angle acc?))
+;;   (make-spaceship object-location) -angle speed and position of spaceship.
+(define-struct spaceship (loc))
 
 ;; A projectile is
-;;   (make-projectile posn  -- prev location
-;;                    posn  --next location)
-(define-struct projectile (posn pos-prev pos-next))
+;;   (make-projectile object-location)  --  angle speed and position of projectile
+(define-struct projectile (loc))
+;; ToDo: Add functionality for different type of projectile? In case add enemy space ship. 
 
-
-
-;; A size is either a integer between 1 and 5
-;; Interpretation: When an astroid has size 1 it can be destroyed. If an astroid with n>1 is destroyed
-;; it splits into two astroids of size n-1
+;; A size is one of:
+;; 1, 2, or 3
 
 ;; A astroid is
-;;   (make-astroid posn  -- prev location
-;;                 posn  -- next location
-;;                 size -- tells the size of the astroid)
-(define-struct astroid (posn pos-prev pos-next size))
+;;   (make-astroid object-location -- angle speed and position of astroid
+;;                 radius -- tells the size of the astroid)
+(define-struct astroid (loc radius))
+
+
+;;  keyStroke is
+;; (make keyStrokes boolean boolean boolean boolean)
+(define-struct keyStrokes (left? up? right? down?))
+;; Interpretation: left? =1 if left key is down and left? =0 if left key is up. Same for up? right? down?
 
 ;; a GameState is
 ;;   (make-game number  -- score
 ;;              number  -- number of life's left
 ;;              spaceship -- the spaceship
 ;;              [list-of astroid] -- the astroids in space
-;;              [list-of projectile]) -- the projectiles shot from the space ship
-(define-struct game (score life spaceship astroid-belt projectiles))
+;;              [list-of projectile] -- the projectiles shot from the space ship
+;;              keyStrokes --  Tells if turn/acc keys are up or down
+;;              ticks -- number of clock ticks since intialization)
+(define-struct game (score life spaceship astroid-belt projectiles key))
 
+;; Projectile Speed
+(define *Projectile-Speed* 2)
 
+;; Projectile Length
+(define *Projectile-Length* 20)
+
+;; Spaceship Height
+(define *Spaceship-Height* 26)
+
+;; Spaceship Width
+(define *Spaceship-Width* 22)
+
+;; Spaceship Speed
+(define *Spaceship-Speed* 1)
+
+;; Spaceship turn sensitivity
+(define *Spaceship-Sensitvity* 1)
 #| -----------   Image Constants -----------   |#
 
 ;; Smallest Astroid Radius
@@ -89,10 +116,10 @@ Game Controls:
 (define *WORLD-CANVAS* (empty-scene *WORLD-WIDTH* *WORLD-HEIGHT* "Black"))
 
 ;; Spaceship Image
-(define *SPACESHIP-IMG* (isosceles-triangle 26 22 "outline" "white")) 
+(define *SPACESHIP-IMG* (isosceles-triangle *Spaceship-Height* *Spaceship-Width* "outline" "black")) 
 
 ;; Projectile Image
-(*PROJECTILE-IMG*  (line 0 20 "white"))
+(define *PROJECTILE-IMG*  (line 0 *Projectile-Length* "white"))
 
 ;; Todo: Check that we have overlay by size? Probably need redefinition of world
 ;;      So first place the large -> medium -> small astroids. 
@@ -103,51 +130,308 @@ Game Controls:
 
 
 
-#| -----------   Functions for objects movement through space -----------   |#
 
-;; acclerate-object: posn angle int -> posn
-;; Moves and object `speed` pixel forward in the direction of the objects angle. 
-(define (acclerate-object position angle speed) ...)
+#| -----------   Functions to move objects through space  -----------   |#
+#| test keyStroke, projectiles, astroids, ships |#
+#| defining testing posn|#
+(define origin (make-posn 0 0))
+(define unit (make-posn 1 1))
+#| defining testing object-location|#
+(define angle45_origin_1 (make-object-location 45 1 origin))
+(define angle45_unit_1 (make-object-location 45 1 unit))
+(define angle45_unit_pi (make-object-location 45 pi unit))
+(define angle60_origin_1 (make-object-location 60 1 origin))
+
+(define ship\angle45_origin_1 (make-spaceship angle45_origin_1))
+(define ship\angle45_unit_1 (make-spaceship angle45_unit_1))
+(define ship\angle45_unit_pi (make-spaceship angle45_unit_pi))
+(define ship\angle60_origin_1 (make-spaceship angle60_origin_1)) 
+
+(define test-key1 (make-keyStrokes 1 0 1 0))
+(define test-key2 (make-keyStrokes 0 1 0 1))
+(define basic-projectiles (list (make-projectile angle45_origin_1)
+                                (make-projectile angle45_unit_1)
+                                (make-projectile angle45_unit_pi)
+                                (make-projectile angle60_origin_1)))
+
+(define basic-astroids (list (make-astroid angle45_origin_1 1)
+                                (make-astroid angle45_unit_1 2)
+                                (make-astroid angle45_unit_pi 3)
+                                (make-astroid angle60_origin_1 3)))
+
+;; to_radians: angle -> number
+;; converts angle to radian
+(define (to_radians angle) (* angle (/ pi 180)))
+(check-within (to_radians 1) .0175 .01)
+(check-within (to_radians 23) .4014 .01)
+
+
+;; move-object: object-location -> object-location
+;; moves obj-loc to next location using speed, location, and angle. 
+(define (move-object obj-loc)
+  (let* ([angle (object-location-angle obj-loc)]
+        [radians (to_radians angle)]
+        [position (object-location-posn obj-loc)]
+        [speed (object-location-speed obj-loc)])
+    (make-object-location angle speed
+                          (make-posn (+ (* (cos radians) speed) (posn-x position))
+                                     (+ (* (sin radians) speed) (posn-y position))))))
+
+
+; check that 45degree turn for a object moving at unit speed at the origin => (√2/2, √2/2)
+(check-within  (move-object angle45_origin_1) (make-object-location 45 1 (make-posn (/ (sqrt 2) 2)  (/ (sqrt 2) 2))) 0.01) 
+; check that 45degree turn for a object moving at unit speed at  (1,1) => (√2/2 +1, √2/2 +1)
+(check-within  (move-object angle45_unit_1) (make-object-location 45 1 (make-posn (+ (/ (sqrt 2) 2) 1) (+ (/ (sqrt 2) 2) 1))) 0.01)
+; check that 45degree turn for a object moving at pi speed at  (1,1) => (pi*√2/2 +1, pi*√2/2 +1)
+(check-within (move-object angle45_unit_pi) (make-object-location 45 pi (make-posn (+ (* (/ (sqrt 2) 2) pi) 1)  (+ (* (/ (sqrt 2) 2) pi) 1))) 0.01)
+; check that 60degree turn for a object moving at unit speed at the origin => (1/2, √3/2)
+(check-within (move-object angle60_origin_1) (make-object-location 60 1 (make-posn (/ 1 2)  (/ (sqrt 3) 2))) 0.01)
+
 
 ;; rotate-object: angle angle -> angle
-;; Rotates the `orig-angle` by the `rot-angle`
-(define (rotate-object orig-angle rot-angle) ... )
-;Note: Use the mod function on 360
+;; rotates the `orig-angle` by the `rot-angle`
+(define (rotate-object orig-angle rot-angle)
+  (remainder (+ orig-angle  rot-angle) 360))
 
-#| -----------   Functions for the PadEvent handler -----------   |#
+(check-expect (rotate-object 30 30) 60) 
+(check-expect (rotate-object 0 1) 1)
+(check-expect (rotate-object 10 359) 9)
 
-;; acc-ship-backward: spaceship -> posn
-;; Moves a spaceship in the exact opposite of spaceship-angle
-(define (acclerate-object a-spaceship) ...)
+;; add-to-posn: number posn ->posn
+;; adds a `const` to each coordinate in `pos`
+(define (add-to-posn const pos) (make-posn (+ (posn-x pos) const) (+ (posn-y pos) const)))
 
-;; shoot: spaceship -> projectile
+
+(check-expect (add-to-posn 5 origin) (make-posn 5 5))
+(check-within (add-to-posn pi unit) (make-posn (+ 1 pi) (+ 1 pi)) 0.01)
+#| ---------------------------   Linear Algebra -------------------------------   |#
+;; dot-product: posn posn -> number
+;; calculates the do product between two posns. 
+(define (dot-product vec0 vec1)
+  (+ (* (posn-x vec0) (posn-x vec1)) (* (posn-y vec0) (posn-y vec1))))
+
+;; vec-subtract: posn posn -> posn
+;; Subtracts `p3` from `p1`
+(define (vec-subtract p1 p3)
+  (make-posn (- (posn-x p1) (posn-x p3)) (- (posn-y p1) (posn-y p3))))
+
+
+(check-expect (vec-subtract (make-posn 5 5) (make-posn 4 4)) (make-posn 1 1))
+
+;; projection-length: posn posn posn -> posn
+;; Equation of line segement L={θ ∈[0,1]: p2 + θ(p1-p2)}. To find the intersection of p3 with L,
+;; solve for θ, in the equation <p3 - p2 + θ(p1-p2), p2 - p1> = 0. The solution is
+;;  θ = [<p2,p2>+<p3,p1> -(<p3,p2> + <p2,p1>)]/[<p2,p2> + <p1,p1> - 2<p1,p2>]. If θ ∉ [0,1] then
+;; then `p3` not on the path  and this function returns #f, otherwise this function
+;; returns  || p2+θ(p1-p2) - p3||, that is, the shortest distance between the line segement and p3. 
+(define (projection-length p1 p2 p3)
+  (let* ((denominator (+ (dot-product p2 p2) (dot-product p1 p1) (* -2 (dot-product p1 p2))))
+         (numerator (- (+ (dot-product p2 p2) (dot-product p3 p1)) (+ (dot-product p3 p2) (dot-product p2 p1))))
+         (theta (/ numerator denominator))
+         (projection (make-posn (+ (posn-x p2) (* (- (posn-x p1) (posn-x p2)) theta))
+                                (+ (posn-y p2) (* (- (posn-y p1) (posn-y p2)) theta)))))
+projection))
+
+;; If projection <0 then no intercept. 
+
+(check-expect (projection-length (make-posn 1 1) (make-posn 4 1) (make-posn 3 3)) 2)
+(check-within (projection-length (make-posn 1 1) (make-posn 4 2) (make-posn 3 3)) 1.264 0.01)
+(check-expect (projection-length (make-posn 1 1) (make-posn 4 1) (make-posn 5 3)) 2)
+
+;; Just gets the hypothenuse of the right triangle defined by the projection, p3,p1
+(define (projection-hypothenuse p1 p3)
+  (make-posn (- (posn-x p3) (posn-x p1)) (- (posn-y p3) (posn-y p1))))
+
+
+;; ray-intersect-sphere?: posn posn posn -> bool
+;; Checks if a ray with endpoints `p1` `p2` has interescted sphere intersected a sphere with
+;; center `p3` and radius `radius`
+(define (ray-intersect-sphere? p1 p2 p3 radius)
+   (let* ((projection (projection-length  p1 p2 p3))
+          (projection.diff (make-posn (- (posn-x projection) (posn-x p3))  (- (posn-y projection) (posn-y p3))))
+          (projection.len (sqrt (dot-product projection projection)))
+          (projection.diff.len (sqrt (dot-product projection.diff.len projection.diff.len)))
+          (coefficient-of-intersect (- projection.len (sqrt (- (sqr radius) (sqr projection.diff.len)))))
+          (point-of-intersect (make-posn (+ (posn-x p2) (* (- (posn-x p1) (posn-x p2)) coefficient-of-intersect))
+                                (+ (posn-y p2) (* (- (posn-y p1) (posn-y p2)) coefficient-of-intersect)))))
+
+  ...)
+
+
+
+PP′==O+t0D
+          
+  projection < 0 => false
+projection-diff < 0 => false
+projection-diff > radius => false.   
+
+
+#|
+#| ---------------------------   Functions for the PadEvent handler -------------------------------   |#
+
+
+
+;; shoot: spaceship int-> projectile
 ;; Shoots a projectile from the head of the spaceship
-(define (shoot a-spaceship) ...)
-;Note: projectile will have same angle of spaceship until it exits the screen
+(define (shoot a-spaceship speed)
+  (let ((spaceship-location (spaceship-loc a-spaceship)))
+    (make-projectile (move-object (make-object-location (object-location-angle spaceship-location)
+                                                        speed
+                                                        (add-to-posn (/ *Spaceship-Height* 2) (object-location-posn spaceship-location)))))))
 
-;; pad-controller: WorldState PadEvent -> WorldState
-;; Advances the world state each time a PadEvent is seem 
-(define (pad-controller ws pad-event)
-    (case (string->symbol k)
-    [(up w) ...]
-    [(down s) ...]
-    [(left a) ...]
-    [(right d) ...]
-    [(| |) ...]))
+;ToDo: Write Tests
+
+;; update-keyStroke: keyStroke symbol -> keyStroke
+;; Updates keyStroke so we know if things are pressed down or not
+(define (update-keyStrokes key-stroke k)
+  (cond [(or (equal? k 'up) (equal? 'w k)) (make-keyStrokes (keyStrokes-left? key-stroke) 1 (keyStrokes-right? key-stroke) 0)]
+        [(or (equal? k 'down) (equal? 's k)) (make-keyStrokes (keyStrokes-left? key-stroke) 0 (keyStrokes-right? key-stroke) 1)]
+        [(or (equal? k 'left) (equal? 'a k)) (make-keyStrokes 1 (keyStrokes-up? key-stroke) 0 (keyStrokes-down? key-stroke))]
+        [(or (equal? k 'right) (equal? 'd k)) (make-keyStrokes 0 (keyStrokes-up? key-stroke) 1 (keyStrokes-down? key-stroke))]
+        [else key-stroke]))
+
+;; ToDo: Repeated operations maybe switch to local 
+(check-expect (update-keyStrokes test-key1 'up) (make-keyStrokes 1 1 1 0)) 
+(check-expect (update-keyStrokes test-key1 'w) (make-keyStrokes 1 1 1 0))
+(check-expect (update-keyStrokes test-key1 'down) (make-keyStrokes 1 0 1 1))
+(check-expect (update-keyStrokes test-key1 's) (make-keyStrokes 1 0 1 1))
+(check-expect (update-keyStrokes  test-key2 'left) (make-keyStrokes 1 1 0 1))  
+(check-expect (update-keyStrokes test-key2 'a) (make-keyStrokes 1 1 0 1))
+(check-expect (update-keyStrokes test-key2 'right) (make-keyStrokes 0 1 1 1))
+(check-expect (update-keyStrokes test-key2 'd) (make-keyStrokes 0 1 1 1))
 
 
+;; pad-controller: GameState Pad-Event -> GameState
+;; Advances the world state each time a PadEvent is seen 
+(define (pad-controller gs pad-event)
+  (let ((sym-key (string->symbol pad-event))
+        (projectiles (game-projectiles gs))
+        (space-ship (game-spaceship gs)))
+  (make-game (game-score gs)
+             (game-life gs)
+              space-ship
+             (game-astroid-belt gs)
+             (if (equal? sym-key '| |) (cons (shoot space-ship *Spaceship-Speed*) projectiles) projectiles)
+             (update-keyStrokes (game-key gs) sym-key))))
+
+
+(pad-controller (make-game 5 2 ship\angle45_origin_1 basic-astroids basic-projectiles test-key1) " ")
+
+
+
+                    
 #| -----------   Functions to call every tick of the clock -----------   |#
 
-;; A deadORalive is a 
-;; (make-deadORalive [list-of projectile]
-;;                       [list-of projectile]
-;;                       [list-of astroid]
-;;                       [list-of astroid])
-(define-struct make-deadORalive (kill/astroids alive/astroids kill/projectiles alive/projectiles))
+;; A deadORalive is either a
+;; - #f
+;; - (make-deadORalive astroid projectile)
+(define-struct deadORalive (astroid projectile))
 
-;; find-dead-or-alive : [list-of projectile] [list-of astroid] -> deadORalive
-;; Returns the list of astroids and projectiles destroyed and alive. 
-(define (find-dead-or-alive projectile-lst astroid-lst) ... )
+;; (2,2) is on the path and within the intervals
+;(check-expect (bounds-check? (make-posn 3 3) (make-posn 2 2) (make-posn 4 4)) #t)
+;; (5,5) is on the path and greater than internval 
+;(check-expect (bounds-check? (make-posn 5 5) (make-posn 2 2) (make-posn 4 4)) #f)
+;; (1,1) is on the path and less than internval 
+;(check-expect (bounds-check? (make-posn 1 1) (make-posn 2 2) (make-posn 4 4)) #f)
+;; switch the order of min & max and redo experiments
+;(check-expect (bounds-check? (make-posn 3 3) (make-posn 4 4) (make-posn 2 2)) #t)
+;(check-expect (bounds-check? (make-posn 5 5) (make-posn 4 4) (make-posn 2 2)) #f)
+;(check-expect (bounds-check? (make-posn 1 1) (make-posn 4 4) (make-posn 2 2)) #f)
+
+
+;; collision: astroid [spaceship or projectile] -> boolean
+;; Tells if `object` has collided with `a-astroid`
+(define (collision a-astroid object)
+  (let* ((object.moving (if (projectile? object) (projectile-loc object) (spaceship-loc object)))       
+         (astroid.radius (astroid-radius a-astroid))
+         (astroid.posn (object-location-posn (astroid-loc a-astroid)))                    
+         (object.moving.posn (object-location-posn object.moving))      
+         (object.moving.next.posn (object-location-posn (move-object object.moving)))        
+         (projection.dist (projection-length object.moving.posn object.moving.next.posn astroid.posn)))  
+    projection.dist))          
+
+
+(define saveme (make-posn 1 1))
+(define saveme.next (object-location-posn (move-object (make-object-location 60 2 (make-posn 1 1)))))
+    
+ (projection-length saveme saveme.next  (make-posn 1.5 4))
+
+
+ 
+(collision (make-astroid angle45_unit_pi 4) (make-projectile (make-object-location 60 2 (make-posn 1 1))))
+(collision (make-astroid angle45_unit_pi 3) (make-projectile (make-object-location 45 pi (make-posn 900 900))))
+
+(collision (make-astroid angle45_unit_pi 4) (make-projectile (make-object-location 45 pi (make-posn 1.2 1))))
+
+ (collision (make-astroid angle45_unit_pi 3) (make-spaceship (make-object-location 45 pi (make-posn 900 900))))
+
+(collision (make-astroid angle45_unit_pi 4) (make-projectile (make-object-location 60 pi (make-posn 1 1))))
+
+
+ (collision (make-astroid angle45_unit_pi 4) (make-projectile (make-object-location 60 pi (make-posn 1.2 1.2))))
+
+
+
+
+
+;Move the object
+(define obj1 (move-object (make-object-location 90 2 (make-posn 1 1))))
+(define obj1.posn (object-location-posn obj))
+
+
+
+
+ 
+(make-projectile angle45_unit_pi)
+(make-projectile ship\angle60_origin_1)
+ship\angle45_unit_pi
+ship\angle60_origin_1
+(make-astroid angle45_unit_pi 3)
+(make-astroid angle45_unit_1 2)
+
+
+;(define-struct object-location (angle speed posn))
+; USE TO TURN AROUND! (rotate-object (object-location-angle obj-loc) 180)
+
+
+
+(collision (make-astroid angle45_unit 2) (make-projectile angle60_origin) 1)
+
+(define basic-astroids (list (make-astroid angle45_origin 1)
+                                (make-astroid angle45_unit 2)
+                                (make-astroid angle60_origin 3)))
+(define test-astroid (make-astroid
+
+                      (define basic-projectiles (list (make-projectile angle45_origin)
+                                                      (make-projectile angle45_unit)
+                                                      (make-projectile angle60_origin)))
+                   
+;; collide?: posn posn posn int int -> bool
+;; tells if an obj has collided w/ an astroid
+(define (collide? projection object.begin object.end  projection.distance astroid.radius)
+  (and (within-radius? projection.distance astroid.radius) (bounds-check? projection object.begin object.end)))
+
+; all true
+(check-expect (collide? (make-posn 3 3) (make-posn 2 2) (make-posn 4 4)  2 5) #t)
+; bounds-check? = false, whitin-radius = True
+(check-expect (collide? (make-posn 5 5) (make-posn 2 2) (make-posn 4 4)  5 5) #f)
+; bounds-check? = true, whitin-radius = false
+(check-expect (collide? (make-posn 3 3) (make-posn 2 2) (make-posn 4 4)  6 5) #f)
+; all false
+(check-expect (collide? (make-posn 1 1) (make-posn 2 2) (make-posn 4 4)  6 5) #f)
+
+(define-struct astroid (loc radius))
+
+  
+*ASTROID-RADIUS*
+(define-struct object-location (angle pos))
+(define-struct spaceship (loc))
+(define-struct projectile (loc))
+(define-struct astroid (loc radius))
+(define-struct keyStrokes (left? up? right? down?))
+(define-struct game (score life spaceship astroid-belt projectiles key))
+*Spaceship-Speed*
+*Spaceship-Sensitvity*
 
 ;; get-score: int [list-of astroid] -> int
 ;; Returns the score by checking the properties of astroid hit
@@ -164,22 +448,22 @@ Game Controls:
 
 ;; get-astroid-belt: [list-of astroid] [list-of astroid] score-> [list-of astroid]
 ;; Returns the astroids that are left alive in the game.
-;; Note: After an astroid is hit if the radious is not *ASTROID-RADIUS* the hit astroid is split into
+;; Note: After an astroid is hit if the size is not 1 then the hit astroid is split into
 ;; two smaller pieces and then speed of smaller rocks increase as well.
-;;How much the speed increases depends on the score, which encodes the hardness of the game. 
+;; How much the speed increases depends on the score, which encodes the hardness of the game. 
 (define (get-astroid-belt alive-astroids astroids-destroyed score) ...)
 
 
-;; tick-tock: WorldState -> WorldState
+;; tick-tock: GameState -> GameState
 ;; Advances the world state each tick of the clock
-(define (tick-tock ws)
-  (let* ([(ship (ws-spaceship))]
-         [(astroid-belt (ws-astroid-belt))]
-         [(projectiles (ws-astroid-belt))]
-         [(score (ws-score))]
+(define (tick-tock gs)
+  (let* ([(ship (game-spaceship gs))]
+         [(astroid-belt (game-astroid-belt gs))]
+         [(projectiles (game-astroid-belt gs))]
+         [(score (game-score gs))]
          [(dead-or-alive (find-dead-or-alive astroid-belt projectiles))]
          [(alive-astroids (deadORalive-alive/astroids dead-or-alive))]
-         [(killed-astroids (deadORalive-kill/astroids dead-or-alive))]
+         [(killed-astroids (deadORalive-dead/astroids dead-or-alive))]
          [(ship-destroyed? ship alive-astroids)])
   (make-game (get-score score killed-astroids)
              (get-life life ship-destroyed?)
@@ -190,14 +474,38 @@ Game Controls:
 
 #| -----------   Functions to draw the Game to screen-----------   |#
 
-;; render: WorldState -> Image
+;; display-score/life: int int -> image
+;; Renders the score and life's onto the canvas and from score/life renders the level
+(define (display-score/life score life canvas) ... )
+
+
+;; display-astroids: [list-of astroid] -> image
+;; Renders the astroids onto the canvas
+(define (display-astroids astroid-belt canvas) ... ) 
+
+;; display-projectiles: [list-of projectile] -> image
+;; Renders the projectiles onto the canvas
+(define (display-projectiles projectiles canvas) ... )
+
+;; display-ship: spaceship -> image
+;; Renders the spaceship onto the canvas
+(define (display-ship spaceship canvas) ... )
+
+
+;; render: GameState -> Image
 ;; Draws game to screen 
-(define (render ws) ....) 
+(define (render gs) (display-ship
+                     (game-spaceship gs) (display-projectiles
+                                          (game-projectiles gs)
+                                          (display-astroids (game-astroid-belt gs)
+                                                            (display-score/life (game-score gs)
+                                                                                (game-lifegs)
+                                                                                *WORLD-CANVAS*))))
 
 
 
 #| -----------   Game Engine   -----------   |#
-;; big-bang: WorldState -> WorldState
+;; big-bang: GameState -> GameState
 ;; The game engine
 (big-bang (make-game .... )
           [on-tick tick-tock ....]
@@ -206,3 +514,4 @@ Game Controls:
 
 
 
+ |#
