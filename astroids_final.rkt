@@ -57,7 +57,7 @@
 1 0 10 #"text-box%\0"
 1 0 32 #"(lib \"text-snipclass.ss\" \"xml\")\0"
 1 0 1 6 #"wxloc\0"
-          0 0 66 0 1 #"\0"
+          0 0 71 0 1 #"\0"
 0 75 1 #"\0"
 0 12 90 -1 90 -1 3 -1 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 255 255 255 1 -1 0 9
 #"Standard\0"
@@ -219,86 +219,70 @@
 -1 4 1 #"\0"
 0 71 1 #"\0"
 1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 1.0 1.0 1.0 0 100 0 0 0 0 -1
--1 2 1 #"\0"
+-1 0 1 #"\0"
+0 75 6 #"Menlo\0"
+0.0 15 90 -1 90 -1 3 -1 0 1 0 1 0 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 1 -1 2 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0.0 0.0 0.0 1.0 1.0 1.0 0 0 0 0 0 0
+-1 -1 2 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0.0 0.0 0.0 1.0 1.0 1.0 150 0 150 0
+0 0 -1 -1 2 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 93 -1 -1 -1 0 1 0 0 0 0 0.0 0.0 0.0 1.0 1.0 1.0 255 0 0 0 0
+0 -1 -1 2 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0.0 0.0 0.0 1.0 1.0 1.0 0 0 175 0 0
+0 -1 -1 2 1 #"\0"
 0 -1 1 #"\0"
 1.0 0 -1 -1 -1 -1 -1 -1 1 0 0 0 0 0 1.0 1.0 1.0 1.0 1.0 1.0 0 0 0 0 0 0
 -1 -1 2 1 #"\0"
 0 -1 1 #"\0"
-1.0 0 -1 -1 -1 -1 -1 -1 1 0 0 0 0 0 0 0 0 1.0 1.0 1.0 65 105 225 0 0 0
--1 -1 24 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 1 0 0 0 0 0 0.0 0.0 0.0 1.0 1.0 1.0 65 105 225 0
+0 0 -1 -1 24 1 #"\0"
 0 -1 1 #"\0"
-1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 255 255 255 -1 -1
-15 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 15 1 #"\0"
 0 -1 1 #"\0"
-1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 255 255 255 -1 -1
-14 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 14 1 #"\0"
 0 -1 1 #"\0"
-1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 255 255 255 -1 -1
-17 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 17 1 #"\0"
 0 -1 1 #"\0"
-1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 255 255 255 -1 -1
-44 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 44 1 #"\0"
 0 -1 1 #"\0"
-1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 255 255 255 -1 -1
-46 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 46 1 #"\0"
 0 -1 1 #"\0"
-1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 255 255 255 -1 -1
-4 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 4 1 #"\0"
 0 -1 1 #"\0"
-1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 255 255 255 -1 -1
-21 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 21 1 #"\0"
 0 -1 1 #"\0"
-1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 255 255 255 -1 -1
-19 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 19 1 #"\0"
 0 -1 1 #"\0"
-1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 255 255 255 -1 -1
-          0 9612 0 17 3 85
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1           0 9578 0 4 3 85
 (
  #";; The first three lines of this file were inserted by DrRacket. The"
  #"y record metadata"
-) 0 0 24 29 1 #"\n"
-0 0 17 3 85
+) 0 0 4 29 1 #"\n"
+0 0 4 3 85
 (
  #";; about the language level of this file in a form that our tools ca"
  #"n easily process."
-) 0 0 24 29 1 #"\n"
-0 0 26 3 7 #"#reader"
-0 0 24 3 1 #"("
-0 0 14 3 3 #"lib"
-0 0 24 3 1 #" "
-0 0 19 3 36 #"\"htdp-intermediate-lambda-reader.ss\""
-0 0 24 3 1 #" "
-0 0 19 3 6 #"\"lang\""
-0 0 24 3 3 #")(("
-0 0 14 3 7 #"modname"
-0 0 24 3 1 #" "
-0 0 14 3 14 #"astroids_final"
-0 0 24 3 3 #") ("
-0 0 14 3 19 #"read-case-sensitive"
-0 0 24 3 1 #" "
-0 0 21 3 2 #"#t"
-0 0 24 3 3 #") ("
-0 0 14 3 10 #"teachpacks"
-0 0 24 3 6 #" ()) ("
-0 0 14 3 13 #"htdp-settings"
-0 0 24 3 3 #" #("
-0 0 21 3 2 #"#t"
-0 0 24 3 1 #" "
-0 0 14 3 11 #"constructor"
-0 0 24 3 1 #" "
-0 0 14 3 17 #"repeating-decimal"
-0 0 24 3 1 #" "
-0 0 21 3 2 #"#f"
-0 0 24 3 1 #" "
-0 0 21 3 2 #"#t"
-0 0 24 3 1 #" "
-0 0 14 3 4 #"none"
-0 0 24 3 1 #" "
-0 0 21 3 2 #"#f"
-0 0 24 3 4 #" () "
-0 0 21 3 2 #"#f"
-0 0 24 3 3 #")))"
-0 0 24 29 1 #"\n"
+) 0 0 4 29 1 #"\n"
+0 0 4 3 195
+(
+ #"#reader(lib \"htdp-intermediate-lambda-reader.ss\" \"lang\")((modnam"
+ #"e astroids_final) (read-case-sensitive #t) (teachpacks ()) (htdp-set"
+ #"tings #(#t constructor repeating-decimal #f #t none #f () #f)))"
+) 0 0 4 29 1 #"\n"
 0 0 24 3 1 #"("
 0 0 15 3 7 #"require"
 0 0 24 3 1 #" "
@@ -320,57 +304,60 @@
 0 0 17 29 1 #"\n"
 0 0 17 29 1 #"\n"
 0 0 17 29 1 #"\n"
+0 0 17 29 1 #"\n"
 0 0 17 3 17 #"Game Description:"
 0 0 17 29 1 #"\n"
+0 0 17 29 1 #"\n"
+0 0 17 3 82
+(
+ #"The player controls a spaceships movement and shoots rocks floating "
+ #"through space."
+) 0 0 17 29 1 #"\n"
 0 0 17 3 90
 (
- #"    The player controls a spaceships movement and shoots rocks float"
- #"ing through space. The"
+ #"The player starts with 69 lifes, and if a rock hits the spaceship th"
+ #"e player loses a life."
 ) 0 0 17 29 1 #"\n"
-0 0 17 3 110
+0 0 17 3 99
 (
- #"    player starts with 69 life's, and if a rock hits the spaceship t"
- #"he player loses a life. If a player shoots"
+ #" If a player shoots a rock then the rocks break into four or two sma"
+ #"ller asteroids depending on the"
 ) 0 0 17 29 1 #"\n"
-0 0 17 3 52 #"    a rock, the the rocks break into four or two sma"
-0 0 17 3 77
+0 0 17 3 93
 (
- #"ller asteroids depending on the rock shot that move faster than the "
- #"original."
+ #"rock shot, and the children rocks move faster than the parent rock. "
+ #"Every 40k score the level"
 ) 0 0 17 29 1 #"\n"
-0 0 17 3 88
+0 0 17 3 82
 (
- #"    Every 40k score the level increases in hardness and rocks move f"
- #"aster   w/ possible "
-) 0 0 17 29 1 #"\n"
-0 0 17 3 103
-(
- #"    lorenz  movements through space. The smaller the rock the more p"
- #"oints you get for shooting it down."
-) 0 0 17 29 1 #"\n"
+ #"increases in hardness and rocks move faster w/ possible lorenz movem"
+ #"ents through s"
+) 0 0 17 3 5 #"pace."
 0 0 17 29 1 #"\n"
-0 0 17 3 108
+0 0 17 3 94
 (
- #"    Once the ship begins moving in a direction it will continue in t"
- #"hat direction without player interventio"
-) 0 0 17 3 27 #"n unless the player applies"
-0 0 17 29 1 #"\n"
-0 0 17 3 37 #"    thrust in a different direction. "
+ #"The smaller the rock the more points you get for shooting it down. O"
+ #"nce the ship begins moving"
+) 0 0 17 29 1 #"\n"
+0 0 17 3 95
+(
+ #"in a direction it will continue in that direction without player int"
+ #"ervention unless the player"
+) 0 0 17 29 1 #"\n"
+0 0 17 3 40 #"applies thrust in a different direction."
 0 0 17 29 1 #"\n"
 0 0 17 29 1 #"\n"
 0 0 17 3 14 #"Game Controls:"
 0 0 17 29 1 #"\n"
-0 0 17 3 53 #"   - up or \"w\" key: Accelerate the spaceship forwards"
+0 0 17 3 52 #"  - up or \"w\" key: Accelerate the spaceship forwards"
 0 0 17 29 1 #"\n"
-0 0 17 3 55 #"   - down or \"s\" key: Accelerate the spaceship backward"
+0 0 17 3 59
+#"  - left or \"a\" key: Turns the spaceship's nose to the left"
 0 0 17 29 1 #"\n"
-0 0 17 3 60
-#"   - left or \"a\" key: Turns the spaceship's nose to the left"
+0 0 17 3 61
+#"  - right key or \"d\": Turns the spaceship's nose to the right"
 0 0 17 29 1 #"\n"
-0 0 17 3 62
-#"   - right key or \"d\": Turns the spaceship's nose to the right"
-0 0 17 29 1 #"\n"
-0 0 17 3 55 #"   - spacebar: shoots projectile from nose of spaceship"
+0 0 17 3 54 #"  - spacebar: shoots projectile from nose of spaceship"
 0 0 17 29 1 #"\n"
 0 0 17 29 1 #"\n"
 0 0 17 3 2 #"|#"
@@ -489,6 +476,46 @@
  #" key is up. Same for up?  down?"
 ) 0 0 24 29 1 #"\n"
 0 0 24 29 1 #"\n"
+0 0 17 3 38 #";; A coordinate is a point in 3D space"
+0 0 24 29 1 #"\n"
+0 0 17 3 41 #";; (make-coordinate number number number)"
+0 0 24 29 1 #"\n"
+0 0 24 3 1 #"("
+0 0 15 3 13 #"define-struct"
+0 0 24 3 1 #" "
+0 0 14 3 10 #"coordinate"
+0 0 24 3 2 #" ("
+0 0 14 3 1 #"x"
+0 0 24 3 1 #" "
+0 0 14 3 1 #"y"
+0 0 24 3 1 #" "
+0 0 14 3 1 #"z"
+0 0 24 3 2 #"))"
+0 0 24 29 1 #"\n"
+0 0 24 29 1 #"\n"
+0 0 17 3 21 #";; A special/asteroid"
+0 0 24 29 1 #"\n"
+0 0 17 3 49 #";; (make-special/asteroid posn coordinate radius)"
+0 0 24 29 1 #"\n"
+0 0 24 3 1 #"("
+0 0 15 3 13 #"define-struct"
+0 0 24 3 1 #" "
+0 0 14 3 16 #"special/asteroid"
+0 0 24 3 2 #" ("
+0 0 14 3 4 #"posn"
+0 0 24 3 1 #" "
+0 0 14 3 5 #"coord"
+0 0 24 3 1 #" "
+0 0 14 3 6 #"radius"
+0 0 24 3 2 #"))"
+0 0 24 29 1 #"\n"
+0 0 17 3 113
+(
+ #";; Invarient: special/asteroid always have radius = *SmallRadius*, a"
+ #"nd always have lorenz motion through space.  "
+) 0 0 24 29 1 #"\n"
+0 0 24 29 1 #"\n"
+0 0 24 29 1 #"\n"
 0 0 17 3 17 #";; a GameState is"
 0 0 24 29 1 #"\n"
 0 0 17 3 32 #";;   (make-game number  -- score"
@@ -540,68 +567,6 @@
 0 0 24 3 2 #"))"
 0 0 24 29 1 #"\n"
 0 0 24 29 1 #"\n"
-0 0 17 3 38 #";; A coordinate is a point in 3D space"
-0 0 24 29 1 #"\n"
-0 0 17 3 41 #";; (make-coordinate number number number)"
-0 0 24 29 1 #"\n"
-0 0 24 3 1 #"("
-0 0 15 3 13 #"define-struct"
-0 0 24 3 1 #" "
-0 0 14 3 10 #"coordinate"
-0 0 24 3 2 #" ("
-0 0 14 3 1 #"x"
-0 0 24 3 1 #" "
-0 0 14 3 1 #"y"
-0 0 24 3 1 #" "
-0 0 14 3 1 #"z"
-0 0 24 3 2 #"))"
-0 0 24 29 1 #"\n"
-0 0 24 29 1 #"\n"
-0 0 17 3 21 #";; A special/asteroid"
-0 0 24 29 1 #"\n"
-0 0 17 3 49 #";; (make-special/asteroid posn coordinate radius)"
-0 0 24 29 1 #"\n"
-0 0 24 3 1 #"("
-0 0 15 3 13 #"define-struct"
-0 0 24 3 1 #" "
-0 0 14 3 16 #"special/asteroid"
-0 0 24 3 2 #" ("
-0 0 14 3 4 #"posn"
-0 0 24 3 1 #" "
-0 0 14 3 5 #"coord"
-0 0 24 3 1 #" "
-0 0 14 3 6 #"radius"
-0 0 24 3 2 #"))"
-0 0 24 29 1 #"\n"
-0 0 24 29 1 #"\n"
-0 0 17 3 22 #";; A deadORalive is a "
-0 0 24 29 1 #"\n"
-0 0 17 3 59
-#";; (make-deadORalive [list-of asteroid or special/asteroid]"
-0 0 24 29 1 #"\n"
-0 0 17 3 41 #";;                   [list-of projectile]"
-0 0 24 29 1 #"\n"
-0 0 17 3 59
-#";;                   [list-of asteroid or special/asteroid]"
-0 0 24 29 1 #"\n"
-0 0 17 3 42 #";;                   [list-of projectile])"
-0 0 24 29 1 #"\n"
-0 0 24 3 1 #"("
-0 0 15 3 13 #"define-struct"
-0 0 24 3 1 #" "
-0 0 14 3 11 #"deadORalive"
-0 0 24 3 2 #" ("
-0 0 14 3 15 #"alive/asteroids"
-0 0 24 3 1 #" "
-0 0 14 3 17 #"alive/projectiles"
-0 0 24 3 1 #" "
-0 0 14 3 14 #"kill/asteroids"
-0 0 24 3 1 #" "
-0 0 14 3 16 #"kill/projectiles"
-0 0 24 3 2 #"))"
-0 0 24 29 1 #"\n"
-0 0 24 29 1 #"\n"
-0 0 24 29 1 #"\n"
 0 0 17 3 48 #"#| -----------   Game Constants -----------   |#"
 0 0 24 29 1 #"\n"
 0 0 17 3 22 #";; Hardness Parameters"
@@ -611,7 +576,7 @@
 0 0 24 3 1 #" "
 0 0 14 3 12 #"*HARDNESS-1*"
 0 0 24 3 1 #" "
-0 0 21 3 3 #"500"
+0 0 21 3 3 #"150"
 0 0 24 3 2 #") "
 0 0 17 3 85
 (
@@ -623,7 +588,7 @@
 0 0 24 3 1 #" "
 0 0 14 3 12 #"*HARDNESS-2*"
 0 0 24 3 1 #" "
-0 0 21 3 3 #"100"
+0 0 21 3 2 #"50"
 0 0 24 3 2 #") "
 0 0 17 3 89
 (
@@ -635,7 +600,7 @@
 0 0 24 3 1 #" "
 0 0 14 3 18 #"*MAX-AMT-ASTROIDS*"
 0 0 24 3 1 #" "
-0 0 21 3 2 #"42"
+0 0 21 3 2 #"10"
 0 0 24 3 2 #") "
 0 0 17 3 87
 (
@@ -4219,9 +4184,11 @@
 0 0 24 29 1 #"\n"
 0 0 17 3 50 #";; move-object: object-location -> object-location"
 0 0 24 29 1 #"\n"
-0 0 17 3 68
-#";; moves obj-loc to next location using speed, location, and angle. "
-0 0 24 29 1 #"\n"
+0 0 17 3 70
+(
+ #";; moves `obj-loc` to next location using speed, location, and angle"
+ #". "
+) 0 0 24 29 1 #"\n"
 0 0 24 3 1 #"("
 0 0 15 3 6 #"define"
 0 0 24 3 2 #" ("
@@ -4916,22 +4883,22 @@
 0 0 24 29 1 #"\n"
 0 0 17 3 47 #";; get-projection: posn posn posn -> projection"
 0 0 24 29 1 #"\n"
-0 0 17 3 104
+0 0 17 3 106
 (
- #";; To find closest point to  `p3`  on the line parameterized by `p1`"
- #" and `p2  by solving for  \316\270 in the "
+ #";; Finds the closest point to  `p3`  on the line parameterized by `p"
+ #"1` and `p2  by solving for  \316\270 in the "
 ) 0 0 24 29 1 #"\n"
-0 0 17 3 83
+0 0 17 3 80
 (
- #";; equation <p3 - p2 + \316\270(p1-p2), p2 - p1> = 0. The solution i"
- #"s to this equation is"
+ #";; equation <p3 - p2 + \316\270(p1-p2), p2 - p1> = 0. The solution t"
+ #"o this equation is"
 ) 0 0 24 29 1 #"\n"
 0 0 17 3 111
 (
  #";;  \316\270^* = [<p1,p2> + <p3,p1> -(<p1,p1> + <p3,p2>)]/[- <p2,p2>"
  #" - <p1,p1> + 2<p1,p2>], and this function returns"
 ) 0 0 24 29 1 #"\n"
-0 0 17 3 41 #";; the projection vector, p2+\316\270^*(p1-p2)."
+0 0 17 3 41 #";; the projection associated with  \316\270^*. "
 0 0 24 29 1 #"\n"
 0 0 24 3 1 #"("
 0 0 15 3 6 #"define"
@@ -5872,7 +5839,7 @@
 0 0 24 29 1 #"\n"
 0 0 17 3 36 #";; shoot: spaceship int-> projectile"
 0 0 24 29 1 #"\n"
-0 0 17 3 53 #";; Shoots a projectile from the head of the spaceship"
+0 0 17 3 53 #";; shoots a projectile from the head of the spaceship"
 0 0 24 29 1 #"\n"
 0 0 24 3 1 #"("
 0 0 15 3 6 #"define"
@@ -6225,10 +6192,10 @@
 0 0 24 29 1 #"\n"
 0 0 17 3 46 #";; update-floating?: symbol boolean -> boolean"
 0 0 24 29 1 #"\n"
-0 0 17 3 125
+0 0 17 3 121
 (
  #";; updates the floating parameter to #t the first time user presses "
- #"up for entire game, and now the ship will float forever. "
+ #"up for entire game. Now the ship will float forever. "
 ) 0 0 24 29 1 #"\n"
 0 0 24 3 1 #"("
 0 0 15 3 6 #"define"
@@ -6653,8 +6620,8 @@
 0 0 24 29 1 #"\n"
 0 0 17 3 51 #";; release-keyStroke: keyStroke symbol -> keyStroke"
 0 0 24 29 1 #"\n"
-0 0 17 3 63
-#";; updates keyStroke so we know if keys are pressed down or not"
+0 0 17 3 59
+#";; updates keyStroke so we know if keys are released or not"
 0 0 24 29 1 #"\n"
 0 0 24 3 1 #"("
 0 0 15 3 6 #"define"
@@ -7078,6 +7045,7 @@
  #"--   |#"
 ) 0 0 24 29 1 #"\n"
 0 0 24 29 1 #"\n"
+0 0 24 29 1 #"\n"
 0 0 17 3 79
 (
  #";; collide? [asteroid or special/asteroid] [spaceship or projectile]"
@@ -7385,10 +7353,10 @@
  #";; object-collision?: [list-of asteroid or special/asteroid] object "
  #"-> (asteroid or #f or special)"
 ) 0 0 24 29 1 #"\n"
-0 0 17 3 104
+0 0 17 3 107
 (
- #";; check `asteroid-belt` see if object has hit at-least one asteroid"
- #", and returns the first asteroid hit"
+ #";; check `asteroid-belt` to see if object has hit at-least one aster"
+ #"oid, and returns the first asteroid hit"
 ) 0 0 24 29 1 #"\n"
 0 0 24 3 1 #"("
 0 0 15 3 6 #"define"
@@ -7654,6 +7622,33 @@
 0 0 21 3 1 #"1"
 0 0 24 3 3 #")) "
 0 0 21 3 1 #"4"
+0 0 24 3 2 #"))"
+0 0 24 29 1 #"\n"
+0 0 24 29 1 #"\n"
+0 0 17 3 22 #";; A deadORalive is a "
+0 0 24 29 1 #"\n"
+0 0 17 3 59
+#";; (make-deadORalive [list-of asteroid or special/asteroid]"
+0 0 24 29 1 #"\n"
+0 0 17 3 41 #";;                   [list-of projectile]"
+0 0 24 29 1 #"\n"
+0 0 17 3 59
+#";;                   [list-of asteroid or special/asteroid]"
+0 0 24 29 1 #"\n"
+0 0 17 3 42 #";;                   [list-of projectile])"
+0 0 24 29 1 #"\n"
+0 0 24 3 1 #"("
+0 0 15 3 13 #"define-struct"
+0 0 24 3 1 #" "
+0 0 14 3 11 #"deadORalive"
+0 0 24 3 2 #" ("
+0 0 14 3 15 #"alive/asteroids"
+0 0 24 3 1 #" "
+0 0 14 3 17 #"alive/projectiles"
+0 0 24 3 1 #" "
+0 0 14 3 14 #"kill/asteroids"
+0 0 24 3 1 #" "
+0 0 14 3 16 #"kill/projectiles"
 0 0 24 3 2 #"))"
 0 0 24 29 1 #"\n"
 0 0 24 29 1 #"\n"
@@ -8440,7 +8435,7 @@
 0 0 24 29 1 #"\n"
 0 0 24 29 1 #"\n"
 0 0 17 3 60
-#";; get-life: int (asteroid or #f or special/asteroid) -> int"
+#";; get-life: int [asteroid or #f or special/asteroid] -> int"
 0 0 24 29 1 #"\n"
 0 0 17 3 74
 (
@@ -8501,7 +8496,7 @@
 0 0 24 29 1 #"\n"
 0 0 17 3 57 #";; float-ship: object-location boolean -> object-location"
 0 0 24 29 1 #"\n"
-0 0 17 3 50 #";; floats the ship through space if `floating?'=#t"
+0 0 17 3 51 #";; floats the ship through space if `floating?'==#t"
 0 0 24 29 1 #"\n"
 0 0 24 3 1 #"("
 0 0 15 3 6 #"define"
@@ -9741,7 +9736,7 @@
 0 0 14 3 13 #"*SmallRadius*"
 0 0 24 3 6 #"))])))"
 0 0 24 29 1 #"\n"
-0 0 17 3 52 #"; No testing random functions since cant set the see"
+0 0 17 3 54 #"; No testing random functions since can't set the seed"
 0 0 24 29 1 #"\n"
 0 0 24 29 1 #"\n"
 0 0 24 3 1 #"("
@@ -9846,15 +9841,10 @@
 0 0 17 3 68
 #";; propagate: asteroid int -> [list-of asteroid or special/asteroid]"
 0 0 24 29 1 #"\n"
-0 0 17 3 86
+0 0 17 3 108
 (
- #";; If the dead asteroid is not size *SmallRadius*, then it is split "
- #"into two asteroids"
-) 0 0 24 29 1 #"\n"
-0 0 17 3 72
-(
- #";; one size less than current traveling at 45degree angles from pare"
- #"nt. "
+ #";; If the dead asteroid is *SmallRadius* it is deleted, otherwise it"
+ #" splits into smaller children astroids. "
 ) 0 0 24 29 1 #"\n"
 0 0 24 3 1 #"("
 0 0 15 3 6 #"define"
@@ -10433,7 +10423,7 @@
 ) 0 0 24 29 1 #"\n"
 0 0 17 3 88
 (
- #";; Adds faller to the list-of-faller randomly according to *HARDNESS"
+ #";; adds faller to the list-of-faller randomly according to *HARDNESS"
  #"-1* and *HARDNESS-2*"
 ) 0 0 24 29 1 #"\n"
 0 0 24 3 3 #"  ("
@@ -10573,7 +10563,7 @@
 0 0 21 3 1 #"'"
 0 0 24 3 5 #"()]))"
 0 0 24 29 1 #"\n"
-0 0 17 3 46 #"; Not testing randomness because cant set seed"
+0 0 17 3 47 #"; Not testing randomness because can't set seed"
 0 0 24 29 1 #"\n"
 0 0 24 3 2 #"  "
 0 0 24 29 1 #"\n"
@@ -10717,7 +10707,7 @@
 0 0 14 3 13 #"asteroid-belt"
 0 0 24 3 3 #")))"
 0 0 24 29 1 #"\n"
-0 0 17 3 20 #"; Testing Randomness"
+0 0 17 3 47 #"; Not testing randomness because can't set seed"
 0 0 24 29 1 #"\n"
 0 0 24 29 1 #"\n"
 0 0 17 3 63
@@ -11101,7 +11091,7 @@
 0 0 14 3 15 #"ship-destroyed?"
 0 0 24 3 5 #")))))"
 0 0 24 29 1 #"\n"
-0 0 17 3 39 #"; involves random no seed not testing. "
+0 0 17 3 47 #"; Not testing randomness because can't set seed"
 0 0 24 29 1 #"\n"
 0 0 24 29 1 #"\n"
 0 0 24 29 1 #"\n"
