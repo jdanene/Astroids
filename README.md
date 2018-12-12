@@ -12,7 +12,6 @@
 
 **Game Controls**:
    - up or "w" key: Accelerate the spaceship forwards
-   - down or "s" key: Accelerate the spaceship backward
    - left or "a" key: Turns the spaceship's nose to the left
    - right key or "d": Turns the spaceship's nose to the right
    - spacebar: shoots projectile from nose of spaceship
