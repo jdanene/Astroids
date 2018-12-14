@@ -9,6 +9,8 @@
     lorenz  movements through space. The smaller the rock the more points you get for shooting it down.
     Once the ship begins moving in a direction it will continue in that direction without player intervention unless the player applies
     thrust in a different direction. 
+    
+    *After a certain level the chaotic world becomes orderly and beautiful, but it takes a certain type of player to reach it....*
 
 **Game Controls**:
    - up or "w" key: Accelerate the spaceship forwards
