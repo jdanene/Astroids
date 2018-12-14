@@ -13,7 +13,7 @@
 *After a certain level the chaotic world becomes orderly and beautiful, but it takes a certain type of player to reach it....*
 
 **Game Controls**:
-   - up or "w" key: Accelerate the spaceship forwards
+   - up or "w" key: Accelerate the spaceship forward
    - left or "a" key: Turns the spaceship's nose to the left
    - right key or "d": Turns the spaceship's nose to the right
    - spacebar: shoots projectile from nose of spaceship
